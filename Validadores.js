@@ -75,3 +75,56 @@
 		},i=null;for(f in h)for(g in h[f].prefix)if(e.substr(0,h[f].prefix[g].length)==h[f].prefix[g]&&-1!=h[f].length.indexOf(e.length)){i=f;break}return null==i?!1:"AMERICAN_EXPRESS"==i?4==d.length:3==d.length}
 	}
 }
+
+/* Valida si es un archivo, junto a su extensión */
+(window.jQuery),function(a){
+	a.fn.bootstrapValidator.validators.file={
+		html5Attributes:{
+			extension:"extension",maxsize:"maxSize",message:"message",type:"type"
+		},validate:function(a,b,c){
+			var d=b.val();if(""==d)return!0;var e,f=c.extension?c.extension.split(","):null,g=c.type?c.type.split(","):null,h=window.File&&window.FileList&&window.FileReader;if(h)for(var i=b.get(0).files,j=i.length,k=0;j>k;k++){if(c.maxSize&&i[k].size>parseInt(c.maxSize))return!1;if(e=i[k].name.substr(i[k].name.lastIndexOf(".")+1),f&&-1==f.indexOf(e))return!1;if(g&&-1==g.indexOf(i[k].type))return!1}else if(e=d.substr(d.lastIndexOf(".")+1),f&&-1==f.indexOf(e))return!1;return!0
+		}
+	}
+}
+
+/* Mayor que lo que indiquemos */
+(window.jQuery),function(a){
+	a.fn.bootstrapValidator.validators.greaterThan={
+		html5Attributes:{
+			message:"message",value:"value",inclusive:"inclusive"
+		},enableByHtml5:function(a){
+			var b=a.attr("min");return b?{value:b}:!1
+		},validate:function(a,b,c){
+			var d=b.val();return""==d?!0:(d=parseFloat(d),c.inclusive===!0?d>c.value:d>=c.value)
+		}
+	}
+}
+
+/* Comprueba que sea un dígito hexadecimal */
+(window.jQuery),function(a){
+	a.fn.bootstrapValidator.validators.hex={
+		validate:function(a,b){
+			var c=b.val();return""==c?!0:/^[0-9a-fA-F]+$/.test(c)
+		}
+	}
+}
+
+/* Comprueba que sea un código de color hexadecimal */
+(window.jQuery),function(a){
+	a.fn.bootstrapValidator.validators.hexColor={
+		enableByHtml5:function(a){
+			return"color"==a.attr("type")
+		},validate:function(a,b){
+			var c=b.val();return""==c?!0:/(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(c)
+		}
+	}
+}
+
+/* Comprueba que son digitos */
+window.jQuery),function(a){
+	a.fn.bootstrapValidator.validators.digits={
+		validate:function(a,b){
+			var c=b.val();return""==c?!0:/^\d+$/.test(c)
+		}
+	}
+}
